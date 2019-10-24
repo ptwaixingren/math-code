@@ -2,9 +2,9 @@
 """
 Created on Thu Oct 24 14:44:36 2019
 
-@author: zhou
+@author: leng
 """
-
+#%%
 from scipy.stats import binom
 import matplotlib.pyplot as plt
 import seaborn
@@ -29,3 +29,24 @@ for i in range(len(params)):
 
     ax[i].set_xticks(x)
     ax[i].set_yticks([0, 0.1, 0.2, 0.3])
+#%%    
+from scipy.stats import binom
+import matplotlib.pyplot as plt
+import seaborn
+
+seaborn.set()
+
+fig, ax = plt.subplots(3, 1)
+params = [(10, 0.25), (10, 0.5), (10, 0.8)]
+x = range(0, 11)
+
+for i in range(len(params)):
+    binom_rv = binom(n=params[i][0], p=params[i][1])
+    # sample 100000 times
+    rvs = binom_rv.rvs(size=100000)
+    ax[i].hist(rvs, bins=11, normed=True)
+    ax[i].set_title('n={}, p={}'.format(params[i][0], params[i][1]))
+    ax[i].set_xlim(0, 10)
+    ax[i].set_ylim(0, 0.4)
+    ax[i].set_xticks(x)
+    print('rvs{}:{}'.format(i, rvs)) 
